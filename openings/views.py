@@ -267,7 +267,7 @@ def updateStudent(request, id):
             if form.is_valid():
                 
                 form.save()
-                return redirect('portaladmin')
+                return redirect('school')
     context ={
         'student': student,
         'form': form
