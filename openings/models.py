@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from ckeditor.fields import RichTextField
 
 
 class User(AbstractUser):
@@ -29,7 +30,7 @@ class Company(models.Model):
 
 class Jobs(models.Model):
     title = models.CharField(max_length=1000)
-    required_skills = models.TextField()
+    required_skills = RichTextField()
     is_open = models.BooleanField(default=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
