@@ -96,7 +96,7 @@ class student_register(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('portaladmin')
+        return redirect('school')
 
 class SchoolSignUpView(CreateView):
     model = User
