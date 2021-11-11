@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="conatiner mt-4 mb-4">
+        <h4 class=" text-center text-uppercase">{{user.username}}</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover">
+                  <thead class=" thead-dark">
+                    <tr>
+                      <th scope="col">Title</th>
+                      <th scope="col">Status
+                      </th>
+                      <th scope="col">Update</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for job in jobs %}
+                      <tr>
+                          <td>{{job.title}}</td>
+                          {% if job.is_open == True %}
+                            <td>Open</td>
+                          {% else %} 
+                           <td>Closed</td>
+                          {% endif %}
+                          <td><a class="btn btn-info btn-sm" href="{% url 'update_job' job.id %}">Update</a></td>
+                          <td><a class="btn btn-danger btn-sm" href="{% url 'delete_job' job.id %}">Delete</a></td>
+                          </tr>
+                
+                    {% endfor %}
+                  </tbody>
+                  </table>  
+                </div>
+                    <div class="pagination align-items-center justify-content-center">
+                      <span class="step-links">
+                          {% if jobs.has_previous %}                                     <!--If there is a previous page-->
+                              <a class="btn btn-info btn-sm" href="?page={{ jobs.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
+                          {% endif %}
+                  
+                          <span class="current">
+                               Page{{ jobs.number }} of {{ jobs.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
+                          </span>
+                  
+                          {% if jobs.has_next %}    <!--If there is a next page-->
+                              <a class="btn btn-info btn-sm" href="?page={{ jobs.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
+                          {% endif %}
+                      </span>
+                  </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Create a new job</h4>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form|crispy}}
+                <input class="btn btn-info btn-block" type="submit" value="add new job">
+            </form>
+        </div>
+        {% for application in applications %}
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-text">{{application.student.user.username}}</h4>
+              <p class="card-text">{{application.email}}</p>
+              <p class="card-text">{{application.phone_number}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

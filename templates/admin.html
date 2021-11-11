@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <script src="https://use.fontawesome.com/2d80d2893d.js"></script>
+    <title>Admin</title>
+</head>
+<body>
+  <div class="container mt-3 mb-2">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'company_register' %}" class="btn btn-block btn-outline-success">Register company <i class="fa fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'school_register' %}" class="btn btn-block btn-outline-warning">Register school <i class="fa fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <a href="{% url 'student_register' %}" class="btn btn-block btn-outline-secondary">Register student <i class="fa fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<div class="container-fluid mt-4 mb-3">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <h5 class="text-center mt-2 mb-2">All Students</h5>
+        <table class="table table-sm table-striped table-hover">
+          <thead class=" thead-dark">
+            <tr>
+              <th scope="col">name</th>
+              <th scope="col">Course</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for student in students %}
+              <tr>
+                  <td>{{student.user.username}}</td>
+                  <td>{{student.course}}</td>
+                  <td><a class="btn btn-info btn-sm" href="{% url 'update_student' student.id %}">Update</a></td>
+                  <td><a class="btn btn-danger btn-sm" href="/delete/student/{{student.id}}">Delete</a></td>
+
+                  
+                  
+                  </tr>
+        
+            {% endfor %}
+          </tbody>
+          </table>  
+        </div>
+            <div class="pagination align-items-center justify-content-center">
+              <span class="step-links">
+                  {% if students.has_previous %}                                     <!--If there is a previous page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ students.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
+                  {% endif %}
+          
+                  <span class="current">
+                       Page{{ students.number }} of {{ students.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
+                  </span>
+          
+                  {% if students.has_next %}    <!--If there is a next page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ students.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
+                  {% endif %}
+              </span>
+          </div> 
+    </div>
+
+    
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <h5 class="text-center mt-2 mb-2">All Companies</h5>
+        <table class="table table-sm table-striped table-hover">
+          <thead class=" thead-dark">
+            <tr>
+              <th scope="col">name</th> 
+              <th scope="col">Reg_no</th>
+              <th scope="col">Update</th> 
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for company in companies %}
+              <tr>
+                  <td>{{company.user.username}}</td>
+                  <td>{{company.reg_no}}</td>
+                  <td><a class="btn btn-info btn-sm" href="{% url 'update_company' company.id %}">Update</a></td>
+                  <td><a class="btn btn-danger btn-sm" href="/delete/company/{{company.id}}">Delete</a></td>
+                  
+                  
+                 
+                  </tr>
+        
+            {% endfor %}
+          </tbody>
+          </table>  
+        </div>
+            <div class="pagination align-items-center justify-content-center">
+              <span class="step-links">
+                  {% if companies.has_previous %}                                     <!--If there is a previous page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ companies.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
+                  {% endif %}
+          
+                  <span class="current">
+                       Page{{ companies.number }} of {{ companies.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
+                  </span>
+          
+                  {% if companies.has_next %}    <!--If there is a next page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ companies.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
+                  {% endif %}
+              </span>
+          </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+       
+      <div class="table-responsive">
+        <h5 class="text-center mt-2 mb-2">All Schools</h5>
+        <table class="table table-sm table-striped table-hover">
+          <thead class=" thead-dark">
+            <tr>
+              <th scope="col">name</th> 
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for school in schools %}
+              <tr>
+                  <td>{{school.user.username}}</td>
+                  <td><a class="btn btn-info btn-sm" href="{% url 'update_school' school.id %}">Update</a></td>
+                  <td><a class="btn btn-danger btn-sm" href="/delete/school/{{school.id}}">Delete</a></td>
+                  
+                  </tr>
+        
+            {% endfor %}
+          </tbody>
+          </table>  
+        </div>
+            <div class="pagination align-items-center justify-content-center">
+              <span class="step-links">
+                  {% if schools.has_previous %}                                     <!--If there is a previous page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ schools.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
+                  {% endif %}
+          
+                  <span class="current">
+                       Page{{ schools.number }} of {{ schools.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
+                  </span>
+          
+                  {% if schools.has_next %}    <!--If there is a next page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ schools.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
+                  {% endif %}
+              </span>
+          </div> 
+    </div>
+    <div class="col-md-6">
+      <div class="table-responsive">
+        <h5 class="text-center mt-2 mb-2">All Jobs</h5>
+        <table class="table table-sm table-striped table-hover">
+          <thead class=" thead-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for job in jobs %}
+              <tr>
+                  <td>{{job.title}}</td>
+                  {% if job.is_open == True %}
+                    <td>Open</td>
+                  {% else %} 
+                   <td>Closed</td>
+                  {% endif %}
+                  </tr>
+        
+            {% endfor %}
+          </tbody>
+          </table>  
+        </div>
+            <div class="pagination align-items-center justify-content-center">
+              <span class="step-links">
+                  {% if jobs.has_previous %}                                     <!--If there is a previous page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ jobs.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
+                  {% endif %}
+          
+                  <span class="current">
+                       Page{{ jobs.number }} of {{ jobs.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
+                  </span>
+          
+                  {% if jobs.has_next %}    <!--If there is a next page-->
+                      <a class="btn btn-info btn-sm" href="?page={{ jobs.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
+                  {% endif %}
+              </span>
+          </div>
+    </div>
+  </div>
+</div>
+
+ 
+
+
+
+  
+              
+              
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+              
+</body>
+</html>

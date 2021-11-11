@@ -1,0 +1,187 @@
+$color :(
+    primary:#13ed7a,
+    primary-light:lighten(#13ed7a,10%),
+    primary-dark:darken(black,20%)
+);
+$padding: 15px;
+
+@function color($color-name){
+    @return map-get($color , $color-name)
+}
+
+$desktop:840px;
+
+@mixin desktop {
+    @media (min-width: #{$desktop}){
+        @content;
+    }
+    
+}
+
+
+
+
+body ,html{
+    height: 100%;
+}
+
+body{
+    margin: 0;
+    font-family: sans-serif;
+    
+
+   
+
+    .img-cir{
+        align-content: center;
+        justify-content: center;
+
+
+        img{
+
+        background-color: color(primary);
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+
+        }
+        
+    }
+
+    #bg{
+        clip-path: polygon(100% 0,100% 82%,45% 100%,0 100%, 0 0);
+        background-color: color(primary);
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        z-index: -1;
+
+        @include desktop{
+            clip-path: polygon(0 0,75% 0,55% 100%,0% 100%);
+
+        }
+    }
+    header a{
+
+        @include desktop{
+              font-size: 2.4em;  
+              text-decoration: none;
+
+        }
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: $padding;
+       
+        font-size: 1.6rem;
+        font-weight: bold;
+    }
+   
+}
+
+main{
+
+    @include desktop{
+        display: grid;
+        grid-template-columns: 50% auto;
+        grid-template-areas: 
+        "primary card";
+        ;
+    }
+
+
+    section#card{
+
+        // @include desktop{
+        //     grid-area: card;
+        //     height: fit-content;
+        //     align-self: center;
+        //     margin: 1em;
+
+        // }
+
+        
+
+        background: white;
+        padding: 10px;
+        margin: 1rem auto;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px  rgba(0, 0, 0 ,.2);
+        width: 50%;
+        height: 50%;
+
+        ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            li{
+                margin-bottom: 10px;
+
+
+                span{
+                    position: absolute;
+                    content: "";
+                    width: 30px;
+                    height: 30px;
+                    background-color: color(primary-light);
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+                h6{
+                    display: inline-block;
+                    margin-left: max(40px);
+                    margin-top: 10px;
+                }
+            }
+
+        }
+    }
+
+    section#primary{
+
+
+        
+
+        @include desktop{
+            grid-area: primary;
+            text-align: left;
+            margin: 4em 0 0 4em ;
+        }
+        
+
+        color: #fff;
+        padding: $padding;
+        text-align: center;
+
+        h2{
+            
+
+         
+            font-size: 2em;
+            margin-top: 10px;
+            font-weight: bold;
+            // text-transform: uppercase;
+        }
+        p{
+            font-size: 1.4em;
+        }
+        a{
+
+            @include desktop{
+                display: inline-block;
+                padding: $padding $padding*4;
+            }
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: yellow;
+            display: block;
+            text-align: center;
+            margin: 50px auto 0 auto;
+            padding: $padding;
+        }
+    }
+}
