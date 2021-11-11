@@ -49,13 +49,11 @@
                   </div> 
           </div>
           <div class="col-md-6">
-            <h4>Create a new Student</h4>
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form|crispy}}
-                <input class="btn btn-info btn-block" type="submit" value="add new Student">
-            </form>
-
+            <div class="card">
+              <div class="card-body">
+                <a href="{% url 'student_register' %}" class="btn btn-block btn-outline-secondary">Register student <i class="fa fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
           </div>
       </div>
   </div>
