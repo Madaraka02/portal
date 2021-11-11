@@ -82,7 +82,7 @@ class company_register(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('portaladmin')
+        return redirect('company_register')
 
 class student_register(CreateView):
     model = User
@@ -96,7 +96,7 @@ class student_register(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('school')
+        return redirect('student_register')
 
 class SchoolSignUpView(CreateView):
     model = User
@@ -110,7 +110,7 @@ class SchoolSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('portaladmin')        
+        return redirect('school_register')        
 
 def student_login(request):
     if request.method == 'POST':
