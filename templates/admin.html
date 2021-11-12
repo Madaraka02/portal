@@ -136,7 +136,8 @@
         <table class="table table-sm table-striped table-hover">
           <thead class=" thead-dark">
             <tr>
-              <th scope="col">name</th> 
+              <th scope="col">Name</th> 
+              <th scope="col">Reg No</th> 
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
             </tr>
@@ -145,6 +146,7 @@
             {% for school in schools %}
               <tr>
                   <td>{{school.user.username}}</td>
+                  <td>{{school.reg_no}}</td>
                   <td><a class="btn btn-info btn-sm" href="{% url 'update_school' school.id %}">Update</a></td>
                   <td><a class="btn btn-danger btn-sm" href="/delete/school/{{school.id}}">Delete</a></td>
                   

@@ -9,6 +9,7 @@ class User(AbstractUser):
     is_school = models.BooleanField(default=False)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, null=True, default="school")
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
