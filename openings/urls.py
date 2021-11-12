@@ -20,7 +20,7 @@ urlpatterns = [
     path('delete/school/<int:id>/',   delete_school, name=" delete_school"),
     path('update/school/<int:id>/',  updateSchool, name="update_school"),
 
-    path('delete/student/<int:id>/',   Studentdel, name=" studentdelete"),
+    path('delete/student/<int:id>/',   delete_student, name=" delete_student"),
     path('update/student/<int:id>/',  updateStudent, name="update_student"),
     
     path('companies/<str:id>/',  company, name="company"),

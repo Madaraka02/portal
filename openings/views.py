@@ -122,15 +122,6 @@ class SchoolSignUpView(CreateView):
 #             return redirect('dashboard')
 #     return render(request, 'login-student.html')      
 
-# def company_login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('companies')
-#     return render(request, 'login-campany.html')
 
 def site_login(request):
     if request.method == 'POST':
@@ -149,7 +140,7 @@ def site_login(request):
                 return redirect('portaladmin')
             else:
                 return redirect('home')              
-    return render(request, 'login-school.html')        
+    return render(request, 'login.html')        
 def logout_user(request):
     logout(request)
     return redirect('home')
@@ -167,7 +158,7 @@ def delete_job(request, id):
     if request.user.is_staff or request.user.is_company:
         job = Jobs.objects.get(id=id)
         job.delete()
-        return redirect('company')  
+        return redirect('company', id=request.user.company.id) 
 
 
 
@@ -183,7 +174,7 @@ def updateJob(request, id):
             if form.is_valid():
                 
                 form.save()
-                return redirect('company')
+                return redirect('company', id=request.user.company.id)
     context ={
         'job': job,
         'form': form
@@ -257,12 +248,13 @@ def updateSchool(request, id):
 
     }
     return render(request, 'admin-update-school.html', context)      
-
+ 
 @login_required 
-def Studentdel(request, id):
-    student = Student.objects.get(id=id)
-    student.delete()
-    return redirect('school') 
+def delete_student(request, id):
+    if request.user.is_school:
+        student = Student.objects.get(id=id)
+        student.delete()
+        return redirect('school', id=request.user.school.id) 
 
 @login_required 
 def updateStudent(request, id):
@@ -276,7 +268,7 @@ def updateStudent(request, id):
             if form.is_valid():
                 
                 form.save()
-                return redirect('school')
+                return redirect('school', id=request.user.school.id) 
     context ={
         'student': student,
         'form': form

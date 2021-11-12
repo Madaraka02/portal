@@ -14,28 +14,28 @@
 <body>
   <div class="container mt-3 mb-2">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="card">
           <div class="card-body">
             <a href="{% url 'company_register' %}" class="btn btn-block btn-outline-success">Register company <i class="fa fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="card">
           <div class="card-body">
             <a href="{% url 'school_register' %}" class="btn btn-block btn-outline-warning">Register school <i class="fa fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <!-- <div class="col-md-4">
         <div class="card">
           <div class="card-body">
             <a href="{% url 'student_register' %}" class="btn btn-block btn-outline-secondary">Register student <i class="fa fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
 
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -49,8 +49,6 @@
             <tr>
               <th scope="col">name</th>
               <th scope="col">Course</th>
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -58,11 +56,6 @@
               <tr>
                   <td>{{student.user.username}}</td>
                   <td>{{student.course}}</td>
-                  <td><a class="btn btn-info btn-sm" href="{% url 'update_student' student.id %}">Update</a></td>
-                  <td><a class="btn btn-danger btn-sm" href="/delete/student/{{student.id}}">Delete</a></td>
-
-                  
-                  
                   </tr>
         
             {% endfor %}

@@ -24,7 +24,8 @@
     <div id="bg"></div>
 
     <header>
-      <a href="{% url 'home' %}">Home / Institutions Portal</a>
+      <h6 class="text-white" style="font-size: xx-large; letter-spacing: 2px; text-transform: uppercase; text-decoration: none;"
+      >login to use the portal</h6>
     </header>
 
     <main>
@@ -41,7 +42,7 @@
         <div class="img-cir text-center">
             <img src="{% static 'pics/school-bg.png' %}" class="rounded-circle " alt="...">
         </div>
-        <legend class="text-center mt-2">Institutions Login</legend>
+        <legend class="text-center mt-2">Login</legend>
        
         <form method="post">
           {% csrf_token %}
