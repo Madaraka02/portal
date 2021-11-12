@@ -7,7 +7,7 @@ from .models import *
 
 
 class SchoolSignUpForm(UserCreationForm):
-
+    reg_no = forms.CharField(required=True)
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -18,9 +18,13 @@ class SchoolSignUpForm(UserCreationForm):
         user.is_school = True
         user.save()
         school = School.objects.create(user=user)
+        school.reg_no = self.cleaned_data.get('reg_no')
+        school.save()
         return user
 
 class StudentSignUpForm(UserCreationForm):
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
     school = forms.ModelChoiceField(queryset=School.objects.all(), empty_label="Please choose a School")
     course = forms.CharField(required=True)
 
@@ -30,12 +34,14 @@ class StudentSignUpForm(UserCreationForm):
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
+        user.first_name = self.cleaned_data["first_name"]
+        user.last_name = self.cleaned_data["last_name"]
         user.is_student = True
         user.save()
         student = Student.objects.create(user=user)
         student.school = self.cleaned_data.get('school')
         student.course = self.cleaned_data.get('course')
-        
+        student.save()
         return user
 
 class CompanySignUpForm(UserCreationForm):
@@ -51,6 +57,7 @@ class CompanySignUpForm(UserCreationForm):
         user.save()
         company = Company.objects.create(user=user)
         company.reg_no = self.cleaned_data.get('reg_no')
+        company.save()
         return user    
 
 

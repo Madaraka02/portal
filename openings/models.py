@@ -7,9 +7,12 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_company = models.BooleanField(default=False)
     is_school = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    reg_no = models.CharField(max_length=100, null=True) 
     def __str__(self):
         return self.user.username
 

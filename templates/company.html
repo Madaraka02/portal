@@ -65,10 +65,12 @@
       <div class="col-md-3">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-text">{{application.student.user.username}}</h4>
+            <h4 class="card-text">{{application.student.user.first_name}} {{application.student.user.last_name}}</h4>
+            <h6 class="card-text">school:{{application.student.school}}</h6>
             <p class="card-text">{{application.email}}</p>
             <p class="card-text">{{application.phone_number}}</p>
             <p class="card-text">{{application.job.title}}</p>
+            <!-- <a href="/students/{{student.user.id }}" class="btn btn-outline-info">View Student</a> -->
           </div>
         </div>
       </div>
