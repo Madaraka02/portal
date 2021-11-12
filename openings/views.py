@@ -277,7 +277,7 @@ def updateStudent(request, id):
     return render(request, 'school-update-student.html', context) 
 
 
-
+@login_required
 def company(request, id):
     company = Company.objects.filter(id=id).first()
     
@@ -297,9 +297,11 @@ def company(request, id):
     if request.method == "POST":
         form = JobForm(request.POST)
         if form.is_valid():
-            form.save()
+            avail = form.save(commit=False)
+            avail.company = request.user.company
+            avail.save()
             
-        return redirect('company') 
+        return redirect('company', id=request.user.company.id) 
     context = {
         'jobs':jobs,
         'company':company,
@@ -307,7 +309,7 @@ def company(request, id):
         'applications':applications
     }
     return render(request, 'company.html', context)
-
+@login_required
 def school(request, id):
     school = School.objects.get(id=id)
     student_list = Student.objects.filter(school=school).order_by('-id')
@@ -333,22 +335,20 @@ def school(request, id):
     }
     return render(request, 'school.html', context)
 
-def all_schools(request):
-    schools = School.objects.all().first()
-    return render(request, 'schools.html')
 
-def all_companies(request):
-    companies = Company.objects.all().first()
-    return render(request, 'companies.html')
-
+@login_required
 def apply_job(request):
     form = ApplicationForm()
-
-    if request.method == "POST":
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            form.save()
-        return redirect('dashboard')
+    if request.user.is_student and request.user.is_authenticated:
+        # student = Student.objects.filter(id=id).first()
+        if request.method == "POST":
+            form = ApplicationForm(request.POST)
+            if form.is_valid():
+                form.save()
+            # avail = form.save(commit=False)
+            # avail.student = request.user.student
+            # avail.save()
+            return redirect('dashboard')
     context = {
         'form':form
     }    

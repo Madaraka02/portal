@@ -77,13 +77,13 @@
           {% for job in jobs %}
           <div class="card mt-2 mb-2">
             <div class="card-body">
-              <h4 class="card-title text-uppercase" style="letter-spacing: 2px; font-size: large;">Posted By: {{job.company.user.username}}</h4>
+              <h4 class="card-title text-uppercase" style="letter-spacing: 2px; font-size: large;">Posted By: {{job.company}}</h4>
               <a href="#" class="badge badge-primary">{{job.title}}</a>
               
   
   
-  
-              <br><small class=""><p>{{job.required_skills}}</p></small>
+              <h6 class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Required skills:</h6>
+              <small class=""><p>{{job.required_skills|safe}}</p></small>
   
             
   
@@ -91,7 +91,7 @@
               {% if job.is_open %}
               <a href="{% url 'apply' %}" class="mt-2 btn  btn-outline-success">Apply Job
                 {% else %}
-                <h4 class="text-danger text-uppercase" style="font-size: medium; letter-spacing: 2px;">Closed</h4>
+                <h4 class="badge badge-danger" style="font-size: medium; letter-spacing: 2px;">Closed</h4>
                 {% endif %}
                 </a>
             </div>
@@ -101,34 +101,7 @@
         <!-- <div class="col-md-2"></div> -->
         <div class="col-md-4 mt-4">
 
-          <div class="content-section ">
-  
-            <p class='text-muted'> Manage Views Here
-            <ul class="list-group card">
-              <li class="list-group-item text-center list-group-item-light"><a href="#" class="nav-link">
-                
-                  
-                  Manage Actions</a> </li>
-             
-              <li class="list-group-item  text-center list-group-item-light"><a href="#" class="nav-link">
-                <i class="fa fa-2x fa-duotone fa-fire"></i> </a> </li>
-              <li class="list-group-item  text-center list-group-item-light"><a href="#" class="nav-link">
-                <i class="fa fa-2x fa-duotone fa-rocket"></i>
-                     </a></li>
-     
-             
-              <li class="list-group-item  text-center list-group-item-light">
-                
-                <a href="#" class="nav-link">
-                  <i class="fa fa-2x fa-duotone fa-fingerprint"></i>
-                
-                
-              </a>
-          </li>
-              
-            </ul>
-            </p>
-          </div>
+
         </div>
 
  

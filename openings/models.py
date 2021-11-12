@@ -32,7 +32,7 @@ class Jobs(models.Model):
     title = models.CharField(max_length=1000)
     required_skills = RichTextField()
     is_open = models.BooleanField(default=True)
-    company = models.CharField(max_length=100, null=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, default="Null",null=True)
 
     def __str__(self):
         return self.title
