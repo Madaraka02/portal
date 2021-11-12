@@ -2,8 +2,27 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<header class="site-header">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
+    <div class="container">
+      <a class="navbar-brand mr-4" href=""><i class="fas fa-home"></i> Hi {{user.username}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto">
+          
+        </div>
+        <!-- Navbar Right Side -->
+        <div class="navbar-nav">
+            
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout <i class="fas fa-sign-out-alt"></i> </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
 <div class="container-fluid mt-4 mb-4">
-        <h4 class=" text-center text-uppercase">Welcome, {{user.username}}</h4>
     <div class="row">
         <div class="col-md-6">
             <div class="table-responsive">

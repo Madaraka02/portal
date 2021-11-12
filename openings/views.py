@@ -323,15 +323,18 @@ def school(request, id):
     except EmptyPage:
         students = paginator.page(paginator.num_pages)
 
-    form = StudentForm()
+    form = StudentSignUpForm()
 
     if request.method == "POST":
-        form = StudentForm(request.POST)
+        form = StudentSignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            avail = form.save(commit=False)
+            avail.school = request.user.school
+            avail.save()
     context = {
         'school':school,
         'students':students,
+        'form':form
     }
     return render(request, 'school.html', context)
 
