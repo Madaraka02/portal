@@ -7,9 +7,7 @@ urlpatterns = [
     path('company/register/', company_register.as_view(), name="company_register"),
     path('student/register/', student_register.as_view(), name="student_register"),
     path('school/register/', SchoolSignUpView.as_view(), name="school_register"),
-    path('student/login/',  student_login, name="student_login"),
-    path('company/login/',  company_login, name="company_login"),
-    path('school/login/',  school_login, name="school_login"),
+    path('login/',  site_login, name="site_login"),
     path('logout/',  logout_user, name="logout"),
     path('student/dashboard/',  dashboard, name="dashboard"),
 
@@ -30,9 +28,5 @@ urlpatterns = [
     path('schools/',  all_schools, name="schools"),
     path('companies/',  all_companies, name="companies"),
     path('applicatons/',  apply_job, name="apply"),
-    
-   
-    
-    
     
 ]

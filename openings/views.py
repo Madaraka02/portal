@@ -112,34 +112,43 @@ class SchoolSignUpView(CreateView):
         login(self.request, user)
         return redirect('school_register')        
 
-def student_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('dashboard')
-    return render(request, 'login-student.html')      
+# def student_login(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             return redirect('dashboard')
+#     return render(request, 'login-student.html')      
 
-def company_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('companies')
-    return render(request, 'login-campany.html')
+# def company_login(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username=username, password=password)
+#         if user is not None:
+#             login(request, user)
+#             return redirect('companies')
+#     return render(request, 'login-campany.html')
 
-def school_login(request):
+def site_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('schools')
+            if request.user.is_school:
+                return redirect('school', id=user.school.id)
+            elif request.user.is_company:
+                return redirect('company', id=user.company.id)  
+            elif request.user.is_student:
+                return redirect('dashboard')
+            elif request.user.is_staff:
+                return redirect('portaladmin')
+            else:
+                return redirect('home')              
     return render(request, 'login-school.html')        
 def logout_user(request):
     logout(request)

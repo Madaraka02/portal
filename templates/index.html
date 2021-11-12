@@ -67,7 +67,6 @@
     <i class="fa  fa-4x fa-solid fa-graduation-cap"></i>
     <h5 class="card-title">Students</h5>
     <small class="card-text">Are you a student in a public/private University or Tvet collage?</small>
-    <a href="{% url 'student_login' %}" class="btn btn-block btn-outline-secondary">Continue <i class="fa fa-solid fa-arrow-right"></i></a>
   </div>
 </div>
 
@@ -81,7 +80,7 @@
     <span><i class=" text-center fa fa-4x fa-light fa-school"></i>
         <h5 class="card-title">Institutions</h5></span>
         <small class="card-text">Are you a Institution looking forward to recommend your students?</small>
-    <a href="{% url 'school_login' %}" class="btn btn-block btn-outline-warning">Continue <i class="fa fa-solid fa-arrow-right"></i></a>
+    
   </div>
 </div>
 
@@ -94,11 +93,18 @@
     <i class=" fa fa-4x fa-solid fa-building"></i>
     <h5 class="card-title">Companys</h5>
     <small class="card-text">Are you a Company looking for Interns or have Job Opportunities?</small>
-    <a href="{% url 'company_login' %}" class="btn btn-block btn-outline-success">Continue <i class="fa fa-solid fa-arrow-right"></i></a>
   </div>
 </div>
 
          </div>
+     </div>
+     <div class="row">
+       <div class="col-md-4"></div>
+       <div class="col-md-4 mt-2 mb-3">
+        <a href="{% url 'site_login' %}" class="btn btn-block btn-outline-info">Login <i class="fa fa-solid fa-arrow-right"></i></a>
+       </div>
+       <div class="col-md-4"></div>
+      
      </div>
     </div>
 
