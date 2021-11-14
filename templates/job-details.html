@@ -1,23 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>job details</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content%}
+  <div class="comtainer">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8 mt-2 mb-2">
 
-    {% for job in jobs %}
-        <h6>{{job.title}}</h6>
-        <h6 class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Required skills:</h6>
-        <small class=""><p>{{job.required_skills|safe}}</p></small>
-        <form action="" method="post", enctype="multipart/form-data">
-          {% csrf_token %}
-          {{form}}
-          <input type="submit" value="Send application">
-        </form>
-            </a>
+        {% for job in jobs %}
+        <div class="card shadow-lg mt-4 mb-2">
+          <div class="card-body">
+            <h6 class="card-text text-center">{{job.title}}</h6>
+            <h6 class="card-text text-center" class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Required skills:</h6>
+            <small class="text-center card-text"><p>{{job.required_skills|safe}}</p></small>
+            <h6 class="card-text text-center" class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Job description:</h6>
+            <small class="text-center card-text"><p>{{job.description|safe}}</p></small>
+            <form action="" method="post">
+              {% csrf_token %}
+              {{form}}
+              <button class="text-center btn btn-outline-info btn-lg" type="submit">Send application</button>
+            </form>
+          </div>
+        </div>
+
     {% endfor %}
-</body>
-</html>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+{% endblock %}
