@@ -7,21 +7,7 @@
     <title>job details</title>
 </head>
 <body>
-    <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
-          <div class="container">
-            <a class="navbar-brand mr-4" href="{% url 'dashboard' %}"><i class="fas fa-home"></i>Home</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-              <div class="navbar-nav mr-auto">
-                
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
+
     {% for job in jobs %}
         <h6>{{job.title}}</h6>
         <h6 class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Required skills:</h6>

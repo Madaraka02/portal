@@ -172,7 +172,10 @@ def updateJob(request, id):
             form = JobForm(request.POST or None, request.FILES, instance=job)
 
             if form.is_valid():
-                
+                avail = form.save(commit=False)
+                avail.company = request.user.company
+                avail.save()
+                    
                 form.save()
                 return redirect('company', id=request.user.company.id)
     context ={
@@ -214,9 +217,14 @@ def updateCompany(request, id):
 def dashboard(request):
     if request.user.is_student or request.user.is_staff:
         jobs = Jobs.objects.all().order_by('-id')
+        paginator = Paginator(jobs, 5)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         
         context = {
-            'jobs':jobs,
+            'page_obj': page_obj,
 
         }
         return render(request, 'dashboard.html', context)
@@ -284,7 +292,13 @@ def company(request, id):
     
     job = Jobs.objects.filter(company=company).order_by('-id')
     applications = Application.objects.filter(company_id=request.user.company.id).order_by('-id')
+    #paginate applications
+        
+    paginator = Paginator(applications, 4)
+    page_number = request.GET.get('page')
+    application_obj = paginator.get_page(page_number) 
     page = request.GET.get('page', 1)
+
     paginator = Paginator(job, 15)
     try:
         jobs = paginator.page(page)
@@ -307,7 +321,7 @@ def company(request, id):
         'jobs':jobs,
         'company':company,
         'form':form,
-        'applications':applications
+        'application_obj':application_obj
     }
     return render(request, 'company.html', context)
 @login_required

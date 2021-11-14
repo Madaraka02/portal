@@ -38,6 +38,7 @@ class Jobs(models.Model):
     required_skills = RichTextField()
     is_open = models.BooleanField(default=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, default="Null",null=True)
+    description = models.TextField(null=True)
 
     def __str__(self):
         return self.title
