@@ -82,14 +82,14 @@
               
   
   
-              <h6 class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Required skills:</h6>
-              <small class=""><p>{{job.required_skills|safe}}</p></small>
+              <h6 class="text-uppercase" style="font-size: small; letter-spacing: 2px;"></h6>
+              <small class=""><p></p></small>
   
             
   
   
               {% if job.is_open %}
-              <a href="{% url 'apply' %}" class="mt-2 btn  btn-outline-success">Apply Job
+              <a href="{% url 'job_details' job.id %}" class="mt-2 btn  btn-outline-success">View detils
                 {% else %}
                 <h4 class="badge badge-danger" style="font-size: medium; letter-spacing: 2px;">Closed</h4>
                 {% endif %}

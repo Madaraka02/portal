@@ -8,6 +8,7 @@ from .models import *
 
 class SchoolSignUpForm(UserCreationForm):
     official_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     reg_no = forms.CharField(required=True)
 
     class Meta(UserCreationForm.Meta):
@@ -17,6 +18,7 @@ class SchoolSignUpForm(UserCreationForm):
     def save(self):
         user = super().save(commit=False)
         user.official_name = self.cleaned_data["official_name"]
+        user.email = self.cleaned_data["email"]
         user.is_school = True
         user.save()
         school = School.objects.create(user=user)
@@ -27,6 +29,7 @@ class SchoolSignUpForm(UserCreationForm):
 class StudentSignUpForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     school = forms.ModelChoiceField(queryset=School.objects.all(), empty_label="Please choose a School")
     course = forms.CharField(required=True)
 
@@ -38,6 +41,7 @@ class StudentSignUpForm(UserCreationForm):
         user = super().save(commit=False)
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
+        user.email = self.cleaned_data["email"]
         user.is_student = True
         user.save()
         student = Student.objects.create(user=user)
@@ -48,6 +52,7 @@ class StudentSignUpForm(UserCreationForm):
 
 class CompanySignUpForm(UserCreationForm):
     official_name = forms.CharField(required=True)
+    email = forms.EmailField(required=True)
     reg_no = forms.CharField(required=True)
 
     class Meta(UserCreationForm.Meta):
@@ -57,6 +62,7 @@ class CompanySignUpForm(UserCreationForm):
     def save(self):
         user = super().save(commit=False)
         user.official_name = self.cleaned_data["official_name"]
+        user.email = self.cleaned_data["email"]
         user.is_company = True
         user.save()
         company = Company.objects.create(user=user)
@@ -89,4 +95,4 @@ class StudentForm(ModelForm):
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = '__all__'         
+        fields = ( )        

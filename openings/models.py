@@ -10,6 +10,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     official_name = models.CharField(max_length=100, null=True, default="school")
+    email = models.CharField(max_length=100, null=True)
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -43,9 +44,8 @@ class Jobs(models.Model):
 
 class Application(models.Model):
     job = models.ForeignKey(Jobs, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    email = models.CharField(max_length=100, null=True)
-    phone_number = models.CharField(max_length=20, null=True)
 
     def __str__(self):
         return self.job.title

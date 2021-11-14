@@ -81,7 +81,7 @@ class company_register(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        # login(self.request, user)
         return redirect('company_register')
 
 class student_register(CreateView):
@@ -95,7 +95,7 @@ class student_register(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        # login(self.request, user)
         return redirect('student_register')
 
 class SchoolSignUpView(CreateView):
@@ -109,7 +109,7 @@ class SchoolSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
+        # login(self.request, user)
         return redirect('school_register')        
 
 # def student_login(request):
@@ -214,6 +214,7 @@ def updateCompany(request, id):
 def dashboard(request):
     if request.user.is_student or request.user.is_staff:
         jobs = Jobs.objects.all().order_by('-id')
+        
         context = {
             'jobs':jobs,
 
@@ -279,10 +280,10 @@ def updateStudent(request, id):
 
 @login_required
 def company(request, id):
-    company = Company.objects.filter(id=id).first()
+    company = Company.objects.filter(id=request.user.company.id).first()
     
     job = Jobs.objects.filter(company=company).order_by('-id')
-    applications = Application.objects.filter(job__in=job)
+    applications = Application.objects.filter(company_id=request.user.company.id).order_by('-id')
     page = request.GET.get('page', 1)
     paginator = Paginator(job, 15)
     try:
@@ -339,20 +340,50 @@ def school(request, id):
     return render(request, 'school.html', context)
 
 
-@login_required
-def apply_job(request):
-    form = ApplicationForm()
-    if request.user.is_student and request.user.is_authenticated:
-        # student = Student.objects.filter(id=id).first()
+def jobs_details(request, id):
+    if request.user.is_student:
+        jobs = Jobs.objects.filter(id=id)
+        job = get_object_or_404(Jobs, id=id)
+        company = job.company
+        student = request.user.student
+        form = ApplicationForm()
+        
         if request.method == "POST":
             form = ApplicationForm(request.POST)
             if form.is_valid():
-                form.save()
-            # avail = form.save(commit=False)
-            # avail.student = request.user.student
-            # avail.save()
-            return redirect('dashboard')
+                appl_form = form.save(commit=False)
+                appl_form.student = request.user.student
+                appl_form.job = job
+                appl_form.company = company
+                appl_form.save()
     context = {
+        'jobs':jobs,
         'form':form
-    }    
-    return render(request, 'apply.html', context)
+    }
+    return render(request, 'job-details.html', context)
+
+@login_required
+def apply_job(request):
+    form = ApplicationForm()
+    if request.user.is_student:
+        if request.method == "POST":
+            form = ApplicationForm(request.POST)
+            if form.is_valid():
+                appl_form = form.save(commit=False)
+                appl_form.student = (request.user.student)
+                appl_form
+                appl_form.save()
+
+
+        appl = Application.objects.filter(student=request.user.student)
+        context={
+            'form':form
+        }
+    return  render(request, 'apllication.html', context)  
+
+@login_required 
+def delete_application(request, id):
+    if request.user.is_company:
+        application = Application.objects.get(id=id)
+        application.delete()
+        return redirect('company', id=request.user.company.id)  
