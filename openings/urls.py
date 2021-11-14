@@ -25,8 +25,7 @@ urlpatterns = [
     
     path('companies/<str:id>/',  company, name="company"),
     path('schools/<str:id>/',  school, name="school"),
-    path('applicatons/',  apply_job, name="apply"),
     path('details/job/<int:id>', jobs_details, name="job_details"),
-    path('apply/', apply_job, name="application")
+    path('delete/application/<int:id>/',  delete_application, name="delete_application")
     
 ]

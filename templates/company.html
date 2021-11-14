@@ -88,7 +88,9 @@
             <h6 class="card-text">{{application.student.user.username}}</h6>
             <h6 class="card-text">school:{{application.student.school}}</h6>
             <p class="card-text">{{application.job.title}}</p>
-            <!-- <a href="/students/{{student.user.id }}" class="btn btn-outline-info">View Student</a> -->
+            <div>
+              <a class="btn btn-outline-danger btn-lg ml-2 mb-2" href="{% url 'delete_application' application.id %}">Delete</a>
+            </div> 
           </div>
         </div>
       </div>
