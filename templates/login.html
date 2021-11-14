@@ -24,13 +24,12 @@
     <!-- if not user.is_authenticated -->
     <div id="bg"></div>
 
-    <header>
-      <h6 class="text-white" style="font-size: xx-large; letter-spacing: 2px; text-transform: uppercase; text-decoration: none;"
-      >login to use the portal</h6>
-    </header>
+   
 
     <main>
-        <div class="container">
+        <div class="container ">
+          <h6 class="text-white " style="font-size: xx-large; letter-spacing: 2px; text-transform: uppercase; text-decoration: none;"
+      >login to use the portal</h6>
      <div class="row">
         <section id="primary" class="col-md-6">
             <img src="{% static 'pics/school-bg.png' %}" class="img-fluid" alt="Responsive image">
@@ -39,21 +38,28 @@
             
           </section>
 
-      <section id="card" class="col-md-5 ">
-        <div class="img-cir text-center">
+      <section id="card" class="col-md-5 mt-4 ">
+        <div class="img-cir text-center mt-4">
             <img src="{% static 'pics/school-bg.png' %}" class="rounded-circle " alt="...">
         </div>
-        <legend class="text-center mt-2">Login</legend>
+        <legend class="text-center mt-4">Login</legend>
        
         <form method="post">
           {% csrf_token %}
             <div class="form-group">
-              <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+              <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+              <small id="emailHelp" class="form-text text-muted">Use your Username to login in Portal.</small>
+
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+              <small id="emailHelp" class="form-text text-muted">Please use your Password to Login.</small>
+
             </div>
             <button type="submit" class="mt-2 btn btn-block btn-outline-success"><i class="fa fa-solid fa-lock"></i> Login</button>
+            <div class="mt-4">
+
+            </div>
 
           </form>
       </section>

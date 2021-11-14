@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-dark bg-dark ">
+  <div class="container-fluid mt-4">
+    <a class="navbar-brand" href="{% url 'portaladmin' %}">Admin site</a>
+  </div>
+</nav>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="table-responsive">
+                <h5 class="text-center mt-2 mb-2">All Companies</h5>
+                <table class="table table-sm table-striped table-hover">
+                  <thead class=" thead-dark">
+                    <tr>
+                      <th scope="col">Name</th> 
+                      <th scope="col">Reg Number</th>
+                      <th scope="col">Update</th> 
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for company in companies %}
+                      <tr>
+                          <td>{{company.user.username}}</td>
+                          <td>{{company.reg_no}}</td>
+                          <td><a class="btn btn-outline-info btn-sm" href="{% url 'update_company' company.id %}">Update <i class="far fa-edit"> </i></a></td>
+                          <td><a class="btn btn-outline-danger btn-sm" href="/delete/company/{{company.id}}">Delete <i class="fas fa-trash-alt"></i></a></td>
+                          
+                          
+                         
+                          </tr>
+                
+                    {% endfor %}
+                  </tbody>
+                  </table>  
+                </div>
+                    <div class="pagination align-items-center justify-content-center">
+                      <span class="step-links">
+                          {% if companies.has_previous %}                                     <!--If there is a previous page-->
+                              <a class="btn btn-info btn-sm" href="?page={{ companies.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
+                          {% endif %}
+                  
+                          <span class="current">
+                               Page{{ companies.number }} of {{ companies.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
+                          </span>
+                  
+                          {% if companies.has_next %}    <!--If there is a next page-->
+                              <a class="btn btn-info btn-sm" href="?page={{ companies.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
+                          {% endif %}
+                      </span>
+                  </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}

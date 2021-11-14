@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,14 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
     <script src="https://use.fontawesome.com/2d80d2893d.js"></script>
     <title>Admin</title>
 </head>
 <body>
+  <div id="bg"></div>
+
   <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
       <div class="container">
@@ -32,7 +37,68 @@
       </div>
     </nav>
   </header>
-  <div class="container mt-3 mb-2">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-top: 5rem;">
+              {{message}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-md-3">
+      <a href="{% url 'admin_students'%}">
+        <div class="card shadow-lg">
+          <div class="card-body">
+            <h2 class="card-title ">All Students</h2>
+          <h1 class="card-title display-2">{{student_count}}</h1>
+        </div>
+            </div>
+          </div>
+      </a>
+    <div class="col-md-3">
+      <a href="{% url 'admin_schools'%}">
+      <div class="card shadow-lg">
+<div class="card-body">
+  <h2 class="card-title ">All Schools</h2>
+  <h2 class="card-title display-2">{{school_count}}</h2>
+</div>
+    </div></a>
+  </div>
+    <div class="col-md-3">
+      <a href="{% url 'admin_companies'%}">
+      <div class="card shadow-lg">
+<div class="card-body">
+  <h2 class="card-title ">All Companies</h2>
+  <h2 class="card-title display-2">{{company_count}}</h2>
+</div>
+    </div>
+  </a></div>
+    <div class="col-md-3">
+      <a href="{% url 'admin_jobs'%}">
+      <div class="card shadow-lg">
+<div class="card-body">
+  <h2 class="card-title ">All Jobs</h2>
+  <h2 class="card-title display-2">{{job_count}}</h2>
+</div>
+    </div></a>
+  </div>
+  </div>
+</div>
+  <div class="container-fluid mt-4 mb-2">
     <div class="row">
       <div class="col-md-6">
         <div class="card">
@@ -59,183 +125,6 @@
     </div>
   </div>
 
-<div class="container-fluid m-4 mt-4 mb-3">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="table-responsive">
-        <h5 class="text-center mt-2 mb-2">All Students</h5>
-        <table class="table table-sm table-striped table-hover">
-          <thead class=" thead-dark">
-            <tr>
-              <th scope="col">name</th>
-              <th scope="col">School</th>
-              <th scope="col">Course</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for student in students %}
-              <tr>
-                  <td>{{student.user.username}}</td>
-                  <td>{{student.school}}</td>
-                  <td>{{student.course}}</td>
-                  </tr>
-        
-            {% endfor %}
-          </tbody>
-          </table>  
-        </div>
-            <div class="pagination align-items-center justify-content-center">
-              <span class="step-links">
-                  {% if students.has_previous %}                                     <!--If there is a previous page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ students.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
-                  {% endif %}
-          
-                  <span class="current">
-                       Page{{ students.number }} of {{ students.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
-                  </span>
-          
-                  {% if students.has_next %}    <!--If there is a next page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ students.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
-                  {% endif %}
-              </span>
-          </div> 
-    </div>
-
-    
-    <div class="col-md-6">
-      <div class="table-responsive">
-        <h5 class="text-center mt-2 mb-2">All Companies</h5>
-        <table class="table table-sm table-striped table-hover">
-          <thead class=" thead-dark">
-            <tr>
-              <th scope="col">name</th> 
-              <th scope="col">Reg_no</th>
-              <th scope="col">Update</th> 
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for company in companies %}
-              <tr>
-                  <td>{{company.user.username}}</td>
-                  <td>{{company.reg_no}}</td>
-                  <td><a class="btn btn-info btn-sm" href="{% url 'update_company' company.id %}">Update</a></td>
-                  <td><a class="btn btn-danger btn-sm" href="/delete/company/{{company.id}}">Delete</a></td>
-                  
-                  
-                 
-                  </tr>
-        
-            {% endfor %}
-          </tbody>
-          </table>  
-        </div>
-            <div class="pagination align-items-center justify-content-center">
-              <span class="step-links">
-                  {% if companies.has_previous %}                                     <!--If there is a previous page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ companies.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
-                  {% endif %}
-          
-                  <span class="current">
-                       Page{{ companies.number }} of {{ companies.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
-                  </span>
-          
-                  {% if companies.has_next %}    <!--If there is a next page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ companies.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
-                  {% endif %}
-              </span>
-          </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-6">
-       
-      <div class="table-responsive">
-        <h5 class="text-center mt-2 mb-2">All Schools</h5>
-        <table class="table table-sm table-striped table-hover">
-          <thead class=" thead-dark">
-            <tr>
-              <th scope="col">Name</th> 
-              <th scope="col">Reg No</th> 
-              <th scope="col">Update</th>
-              <th scope="col">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for school in schools %}
-              <tr>
-                  <td>{{school.user.username}}</td>
-                  <td>{{school.reg_no}}</td>
-                  <td><a class="btn btn-info btn-sm" href="{% url 'update_school' school.id %}">Update</a></td>
-                  <td><a class="btn btn-danger btn-sm" href="/delete/school/{{school.id}}">Delete</a></td>
-                  
-                  </tr>
-        
-            {% endfor %}
-          </tbody>
-          </table>  
-        </div>
-            <div class="pagination align-items-center justify-content-center">
-              <span class="step-links">
-                  {% if schools.has_previous %}                                     <!--If there is a previous page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ schools.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
-                  {% endif %}
-          
-                  <span class="current">
-                       Page{{ schools.number }} of {{ schools.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
-                  </span>
-          
-                  {% if schools.has_next %}    <!--If there is a next page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ schools.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
-                  {% endif %}
-              </span>
-          </div> 
-    </div>
-    <div class="col-md-6">
-      <div class="table-responsive">
-        <h5 class="text-center mt-2 mb-2">All Jobs</h5>
-        <table class="table table-sm table-striped table-hover">
-          <thead class=" thead-dark">
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Status
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for job in jobs %}
-              <tr>
-                  <td>{{job.title}}</td>
-                  {% if job.is_open == True %}
-                    <td>Open</td>
-                  {% else %} 
-                   <td>Closed</td>
-                  {% endif %}
-                  </tr>
-        
-            {% endfor %}
-          </tbody>
-          </table>  
-        </div>
-            <div class="pagination align-items-center justify-content-center">
-              <span class="step-links">
-                  {% if jobs.has_previous %}                                     <!--If there is a previous page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ jobs.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
-                  {% endif %}
-          
-                  <span class="current">
-                       Page{{ jobs.number }} of {{ jobs.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
-                  </span>
-          
-                  {% if jobs.has_next %}    <!--If there is a next page-->
-                      <a class="btn btn-info btn-sm" href="?page={{ jobs.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
-                  {% endif %}
-              </span>
-          </div>
-    </div>
-  </div>
-</div>
 
  
 

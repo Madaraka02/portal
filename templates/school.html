@@ -24,12 +24,12 @@
   <div class="container-fluid mt-4 mb-4">
       <div class="row">
           <div class="col-md-6">
-            <div class="table-responsive">
+            <div class="table-responsive card">
                 <h5 class="text-center mt-2 mb-2">All Students</h5>
                 <table class="table table-sm table-striped table-hover">
                   <thead class=" thead-dark">
                     <tr>
-                      <th scope="col">name</th>
+                      <th scope="col">Name</th>
                       <th scope="col">Course</th>
                       <th scope="col">Update</th>
                       <th scope="col">Delete</th>
@@ -40,8 +40,8 @@
                       <tr>
                           <td>{{student.user.username}}</td>
                           <td>{{student.course}}</td>
-                          <td><a class="btn btn-info btn-sm" href="{% url 'update_student' student.id %}">Update</a></td>
-                          <td><a class="btn btn-danger btn-sm" href="/delete/student/{{student.id}}">Delete</a></td>
+                          <td><a class="btn btn-outline-info btn-sm" href="{% url 'update_student' student.id %}">Update <i class="far fa-edit"> </i></a></td>
+                          <td><a class="btn btn-outline-danger btn-sm" href="/delete/student/{{student.id}}">Delete<i class="fas fa-trash-alt"></i></a></td>
         
                           
                           
@@ -71,7 +71,7 @@
             <h5 class="text-center mt-2 mb-2">Register Students</h5>
             <div class="card">
               <div class="card-body">
-                <a href="{% url 'student_register' %}" class="btn btn-block btn-outline-secondary">Register student <i class="fa fa-solid fa-arrow-right"></i></a>
+                <a href="{% url 'student_register' %}" class="btn btn-block btn-outline-success">Register student <i class="fa fa-solid fa-arrow-right"></i></a>
               </div>
             </div>
           </div>

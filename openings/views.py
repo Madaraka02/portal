@@ -16,56 +16,16 @@ def home(request):
 @login_required
 def admin(request):
     if request.user.is_staff:
-        
-        job_list = Jobs.objects.all().order_by('-id')
-        page = request.GET.get('page', 1)
-        paginator = Paginator(job_list, 15)
-        try:
-            jobs = paginator.page(page)
-        except PageNotAnInteger:
-            jobs = paginator.page(1)
-        except EmptyPage:
-            jobs = paginator.page(paginator.num_pages)
-
-       
-        company_list = Company.objects.all().order_by('-id')
-        page = request.GET.get('page', 1)
-
-        paginator = Paginator(company_list, 15)
-        try:
-            companies = paginator.page(page)
-        except PageNotAnInteger:
-            companies = paginator.page(1)
-        except EmptyPage:
-            companies = paginator.page(paginator.num_pages)
-
-        school_list = School.objects.all().order_by('-id')
-        page = request.GET.get('page', 1)
-
-        paginator = Paginator(school_list, 15)
-        try:
-            schools = paginator.page(page)
-        except PageNotAnInteger:
-            schools = paginator.page(1)
-        except EmptyPage:
-            schools = paginator.page(paginator.num_pages)
-
-        student_list = Student.objects.all().order_by('-id')
-        page = request.GET.get('page', 1)
-
-        paginator = Paginator(student_list, 15)
-        try:
-            students = paginator.page(page)
-        except PageNotAnInteger:
-            students = paginator.page(1)
-        except EmptyPage:
-            students = paginator.page(paginator.num_pages)
+        job_count = Jobs.objects.all().count()
+        school_count = School.objects.all().count()
+        student_count = Student.objects.all().count()
+        company_count = Company.objects.all().count()
 
         context = {
-            'companies':companies,
-            'jobs':jobs,
-            'schools':schools,
-            'students':students
+            'job_count':job_count,
+            'company_count':company_count,
+            'student_count':student_count,
+            'school_count':school_count,
         }
         return render(request, 'admin.html', context)
     return redirect('home') 
@@ -83,7 +43,23 @@ class company_register(CreateView):
         user = form.save()
         # login(self.request, user)
         return redirect('company_register')
+        
+# def reg_student(request):
+#     if request.user.is_staff or request.user.is_school:
+#         form = StudentSignUpForm()
+#         if request.method == 'POST':
+#             form = StudentSignUpForm(request.POST)
+#             if form.is_valid():
+#                 avail = form.save_all(commit=False)
+#                 avail.school = request.user.school
+#                 avail.save()
+#                 messages.success(request, 'Student created successfully')
+#                 return redirect('school', id=user.school.id)
 
+#     context = {
+#         'form':form
+#     }
+#     return render(request, 'schoolreg.html', context)
 class student_register(CreateView):
     model = User
     form_class = StudentSignUpForm
@@ -94,8 +70,10 @@ class student_register(CreateView):
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
+        # if self.request.user.is_staff or self.request.user.is_school:
+        #     form.instance.school = self.request.user.school
         user = form.save()
-        # login(self.request, user)
+            # login(self.request, user)
         return redirect('student_register')
 
 class SchoolSignUpView(CreateView):
@@ -158,6 +136,7 @@ def delete_job(request, id):
     if request.user.is_staff or request.user.is_company:
         job = Jobs.objects.get(id=id)
         job.delete()
+        messages.success(request, "Job was deleted successfully")
         return redirect('company', id=request.user.company.id) 
 
 
@@ -175,8 +154,7 @@ def updateJob(request, id):
                 avail = form.save(commit=False)
                 avail.company = request.user.company
                 avail.save()
-                    
-                form.save()
+                messages.success(request, "Job was updated successfully")
                 return redirect('company', id=request.user.company.id)
     context ={
         'job': job,
@@ -191,7 +169,8 @@ def delete_company(request, id):
     if request.user.is_staff:
         company = Company.objects.get(id=id)
         company.delete()
-        return redirect('portaladmin') 
+        messages.success(request, "Company was deleted successfully")
+        return redirect('admin_companies') 
 
 
 @login_required 
@@ -205,7 +184,10 @@ def updateCompany(request, id):
 
             if form.is_valid():
                 
-                form.save()
+                avail = form.save(commit=False)
+                avail.company = company
+                avail.save()
+                messages.success(request, "Company was updated successfully")
                 return redirect('portaladmin')
         context ={
             'company': company,
@@ -236,7 +218,8 @@ def delete_school(request, id):
     if request.user.is_staff:
         school = School.objects.get(id=id)
         school.delete()
-        return redirect('portaladmin') 
+        messages.success(request, "School was deleted successfully")
+        return redirect('admin_schools') 
 
 @login_required 
 def updateSchool(request, id):
@@ -248,8 +231,10 @@ def updateSchool(request, id):
             form = SchoolForm(request.POST or None, request.FILES, instance=school)
 
             if form.is_valid():
-                
-                form.save()
+                avail = form.save(commit=False)
+                avail.school = school
+                avail.save()
+                messages.success(request, "School was updated successfully")
                 return redirect('portaladmin')
     context ={
         'school': school,
@@ -263,6 +248,7 @@ def delete_student(request, id):
     if request.user.is_school:
         student = Student.objects.get(id=id)
         student.delete()
+        messages.success(request, "Student was deleted successfully")
         return redirect('school', id=request.user.school.id) 
 
 @login_required 
@@ -275,8 +261,10 @@ def updateStudent(request, id):
             form = StudentForm(request.POST or None, request.FILES, instance=student)
 
             if form.is_valid():
-                
-                form.save()
+                avail = form.save(commit=False)
+                avail.student = student
+                avail.save()
+                messages.success(request, "Student was successfully Updated")
                 return redirect('school', id=request.user.school.id) 
     context ={
         'student': student,
@@ -370,6 +358,7 @@ def jobs_details(request, id):
                 appl_form.job = job
                 appl_form.company = company
                 appl_form.save()
+                messages.success(request, "application was successful")
                 return redirect('dashboard') 
     context = {
         'jobs':jobs,
@@ -383,4 +372,77 @@ def delete_application(request, id):
     if request.user.is_company:
         application = Application.objects.get(id=id)
         application.delete()
+        messages.success(request, "application was deleted successfully")
         return redirect('company', id=request.user.company.id)  
+
+@login_required 
+def admin_schools(request):
+    if request.user.is_staff:
+        school_list = School.objects.all().order_by('-id')
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(school_list, 15)
+        try:
+            schools = paginator.page(page)
+        except PageNotAnInteger:
+            schools = paginator.page(1)
+        except EmptyPage:
+            schools = paginator.page(paginator.num_pages)
+        context = {
+            'schools':schools,
+        }    
+    return render(request, 'admin-schools.html', context) 
+
+@login_required 
+def admin_students(request):
+    if request.user.is_staff:
+        student_list = Student.objects.all().order_by('-id')
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(student_list, 15)
+        try:
+            students = paginator.page(page)
+        except PageNotAnInteger:
+            students = paginator.page(1)
+        except EmptyPage:
+            students = paginator.page(paginator.num_pages)
+        context = {
+            'students':students,
+        } 
+    return render(request, 'admin-students.html', context) 
+
+@login_required 
+def admin_companies(request):
+    if request.user.is_staff:
+        company_list = Company.objects.all().order_by('-id')
+        page = request.GET.get('page', 1)
+
+        paginator = Paginator(company_list, 15)
+        try:
+            companies = paginator.page(page)
+        except PageNotAnInteger:
+            companies = paginator.page(1)
+        except EmptyPage:
+            companies = paginator.page(paginator.num_pages)
+        context = {
+            'companies':companies
+        } 
+        return render(request, 'admin-company.html', context)   
+
+@login_required 
+def admin_jobs(request):
+    if request.user.is_staff:
+        job_list = Jobs.objects.all().order_by('-id')
+        page = request.GET.get('page', 1)
+        paginator = Paginator(job_list, 15)
+        try:
+            jobs = paginator.page(page)
+        except PageNotAnInteger:
+            jobs = paginator.page(1)
+        except EmptyPage:
+            jobs = paginator.page(paginator.num_pages)  
+
+        context = {
+            'jobs':jobs
+        }  
+        return render(request, 'admin-jobs.html', context)     

@@ -25,7 +25,12 @@ urlpatterns = [
     
     path('companies/<str:id>/',  company, name="company"),
     path('schools/<str:id>/',  school, name="school"),
-    path('details/job/<int:id>', jobs_details, name="job_details"),
-    path('delete/application/<int:id>/',  delete_application, name="delete_application")
+    path('details/job/<int:id>/', jobs_details, name="job_details"),
+    path('delete/application/<int:id>/',  delete_application, name="delete_application"),
+
+    path('portaladmin/schools/',  admin_schools, name="admin_schools"),
+    path('portaladmin/students/',  admin_students, name="admin_students"),
+    path('portaladmin/companies/', admin_companies, name="admin_companies"),
+    path('portaladmin/jobs/',  admin_jobs, name="admin_jobs")
     
 ]
