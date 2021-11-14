@@ -356,31 +356,14 @@ def jobs_details(request, id):
                 appl_form.job = job
                 appl_form.company = company
                 appl_form.save()
+                return redirect('dashboard') 
     context = {
         'jobs':jobs,
         'form':form
     }
     return render(request, 'job-details.html', context)
 
-@login_required
-def apply_job(request):
-    form = ApplicationForm()
-    if request.user.is_student:
-        if request.method == "POST":
-            form = ApplicationForm(request.POST)
-            if form.is_valid():
-                appl_form = form.save(commit=False)
-                appl_form.student = (request.user.student)
-                appl_form
-                appl_form.save()
-
-
-        appl = Application.objects.filter(student=request.user.student)
-        context={
-            'form':form
-        }
-    return  render(request, 'apllication.html', context)  
-
+ 
 @login_required 
 def delete_application(request, id):
     if request.user.is_company:
