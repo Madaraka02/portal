@@ -1,5 +1,7 @@
 from django.urls import path
+from django.conf.urls import url
 from .views import *
+
 
 urlpatterns = [
     path('', home, name="home"),
@@ -14,13 +16,10 @@ urlpatterns = [
     path('delete/job/<int:id>/',  delete_job, name="delete_job"),
     path('update/job/<int:id>/',  updateJob, name="update_job"),
 
-    path('delete/company/<int:id>/',   delete_company, name=" delete_company"),
     path('update/company/<int:id>/',  updateCompany, name="update_company"),
 
-    path('delete/school/<int:id>/',   delete_school, name=" delete_school"),
     path('update/school/<int:id>/',  updateSchool, name="update_school"),
 
-    path('delete/student/<int:id>/',   delete_student, name=" delete_student"),
     path('update/student/<int:id>/',  updateStudent, name="update_student"),
     
     path('companies/<str:id>/',  company, name="company"),
@@ -31,6 +30,9 @@ urlpatterns = [
     path('portaladmin/schools/',  admin_schools, name="admin_schools"),
     path('portaladmin/students/',  admin_students, name="admin_students"),
     path('portaladmin/companies/', admin_companies, name="admin_companies"),
-    path('portaladmin/jobs/',  admin_jobs, name="admin_jobs")
+    path('portaladmin/jobs/',  admin_jobs, name="admin_jobs"),
+    url(r'^delete_student/(?P<pk>[0-9]+)/$', delete_student,name="delete"),
+    url(r'^delete_company/(?P<pk>[0-9]+)/$', delete_company,name="deletecom"),
+    url(r'^delete_school/(?P<pk>[0-9]+)/$', delete_school,name="deleteshc"),
     
 ]

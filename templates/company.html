@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
+{% block title %}<title>Company</title>{% endblock %}
 {% block content %}
 <header class="site-header">
   <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
@@ -86,8 +86,9 @@
           <div class="card-body">
             <h4 class="card-text">{{application.student.user.first_name}} {{application.student.user.last_name}}</h4>
             <h6 class="card-text">{{application.student.user.email}}</h6>
-            <h6 class="card-text">school:{{application.student.school}}</h6>
-            <p class="card-text">{{application.job.title}}</p>
+            <h6 class="card-text">school: {{application.student.school}}</h6>
+            <h6 class="card-text">Course: {{application.student.course}}</h6>
+            <p class="card-text">Applied for: {{application.job.title}}</p>
             <div>
               <a class="btn btn-outline-danger btn-lg ml-2 mb-2" href="{% url 'delete_application' application.id %}">Delete</a>
             </div> 

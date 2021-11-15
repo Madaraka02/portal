@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% block title %}<title>Admin|All companies</title>{% endblock %}
 <nav class="navbar navbar-dark bg-dark ">
   <div class="container-fluid mt-4">
     <a class="navbar-brand" href="{% url 'portaladmin' %}">Admin site</a>
@@ -26,7 +27,7 @@
                           <td>{{company.user.username}}</td>
                           <td>{{company.reg_no}}</td>
                           <td><a class="btn btn-outline-info btn-sm" href="{% url 'update_company' company.id %}">Update <i class="far fa-edit"> </i></a></td>
-                          <td><a class="btn btn-outline-danger btn-sm" href="/delete/company/{{company.id}}">Delete <i class="fas fa-trash-alt"></i></a></td>
+                          <td><a class="btn btn-outline-danger btn-sm" href="{% url 'deletecom' company.pk %}">Delete <i class="fas fa-trash-alt"></i></a></td>
                           
                           
                          

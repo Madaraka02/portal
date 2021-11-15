@@ -165,9 +165,9 @@ def updateJob(request, id):
 
 
 @login_required 
-def delete_company(request, id):
+def delete_company(request, pk):
     if request.user.is_staff:
-        company = Company.objects.get(id=id)
+        company = Company.objects.get(id=pk)
         company.delete()
         messages.success(request, "Company was deleted successfully")
         return redirect('admin_companies') 
@@ -188,7 +188,7 @@ def updateCompany(request, id):
                 avail.company = company
                 avail.save()
                 messages.success(request, "Company was updated successfully")
-                return redirect('portaladmin')
+                return redirect('admin_companies')
         context ={
             'company': company,
             'form': form
@@ -214,9 +214,9 @@ def dashboard(request):
     return redirect('home')    
 
 @login_required 
-def delete_school(request, id):
+def delete_school(request, pk):
     if request.user.is_staff:
-        school = School.objects.get(id=id)
+        school = School.objects.get(id=pk)
         school.delete()
         messages.success(request, "School was deleted successfully")
         return redirect('admin_schools') 
@@ -235,7 +235,7 @@ def updateSchool(request, id):
                 avail.school = school
                 avail.save()
                 messages.success(request, "School was updated successfully")
-                return redirect('portaladmin')
+                return redirect('admin_schools')
     context ={
         'school': school,
         'form': form
@@ -243,10 +243,10 @@ def updateSchool(request, id):
     }
     return render(request, 'admin-update-school.html', context)      
  
-@login_required 
-def delete_student(request, id):
-    if request.user.is_school:
-        student = Student.objects.get(id=id)
+@login_required     
+def delete_student(request, pk):
+    if request.user.is_staff or request.user.is_school:
+        student = Student.objects.get(id=pk)
         student.delete()
         messages.success(request, "Student was deleted successfully")
         return redirect('school', id=request.user.school.id) 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block title %}<title>School</title>{% endblock %}
 {% block content %}
 <header class="site-header">
   <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
@@ -41,9 +42,9 @@
                           <td>{{student.user.username}}</td>
                           <td>{{student.course}}</td>
                           <td><a class="btn btn-outline-info btn-sm" href="{% url 'update_student' student.id %}">Update <i class="far fa-edit"> </i></a></td>
-                          <td><a class="btn btn-outline-danger btn-sm" href="/delete/student/{{student.id}}">Delete<i class="fas fa-trash-alt"></i></a></td>
+                          <td><a class="btn btn-outline-danger btn-sm" href="{% url 'delete' student.pk %}">Delete<i class="fas fa-trash-alt"></i></a></td>
         
-                          
+                         
                           
                           </tr>
                 

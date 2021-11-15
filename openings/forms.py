@@ -74,7 +74,7 @@ class CompanySignUpForm(UserCreationForm):
 class JobForm(ModelForm):
     class Meta:
         model = Jobs
-        fields = '__all__'        
+        fields = ('title', 'required_skills', 'is_open', 'description')       
 
 
 class CompanyForm(ModelForm):
@@ -96,3 +96,4 @@ class ApplicationForm(ModelForm):
     class Meta:
         model = Application
         fields = ( )        
+        
