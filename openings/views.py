@@ -44,22 +44,6 @@ class company_register(CreateView):
         # login(self.request, user)
         return redirect('company_register')
         
-# def reg_student(request):
-#     if request.user.is_staff or request.user.is_school:
-#         form = StudentSignUpForm()
-#         if request.method == 'POST':
-#             form = StudentSignUpForm(request.POST)
-#             if form.is_valid():
-#                 avail = form.save_all(commit=False)
-#                 avail.school = request.user.school
-#                 avail.save()
-#                 messages.success(request, 'Student created successfully')
-#                 return redirect('school', id=user.school.id)
-
-#     context = {
-#         'form':form
-#     }
-#     return render(request, 'schoolreg.html', context)
 class student_register(CreateView):
     model = User
     form_class = StudentSignUpForm
@@ -119,7 +103,7 @@ def site_login(request):
             else:
                 return redirect('home')              
     return render(request, 'login.html')  
-          
+
 def logout_user(request):
     logout(request)
     return redirect('home')
