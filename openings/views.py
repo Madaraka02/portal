@@ -118,7 +118,8 @@ def site_login(request):
                 return redirect('portaladmin')
             else:
                 return redirect('home')              
-    return render(request, 'login.html')        
+    return render(request, 'login.html')  
+          
 def logout_user(request):
     logout(request)
     return redirect('home')
