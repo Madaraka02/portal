@@ -42,6 +42,7 @@ class company_register(CreateView):
     def form_valid(self, form):
         user = form.save()
         # login(self.request, user)
+        messages.success(self.request, "Company added successfully")
         return redirect('company_register')
         
 class student_register(CreateView):
@@ -58,6 +59,7 @@ class student_register(CreateView):
         #     form.instance.school = self.request.user.school
         user = form.save()
             # login(self.request, user)
+        messages.success(self.request, "Student added successfully")
         return redirect('student_register')
 
 class SchoolSignUpView(CreateView):
@@ -72,6 +74,7 @@ class SchoolSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         # login(self.request, user)
+        messages.success(self.request, "school added successfully")
         return redirect('school_register')        
 
 # def student_login(request):

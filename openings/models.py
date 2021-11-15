@@ -14,7 +14,7 @@ class User(AbstractUser):
 
 class School(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    reg_no = models.CharField(max_length=100, null=True) 
+    reg_no = models.CharField(max_length=100, null=True, unique=True) 
     def __str__(self):
         return self.user.username
 
@@ -28,7 +28,7 @@ class Student(models.Model):
 
 class Company(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    reg_no = models.CharField(max_length=100) 
+    reg_no = models.CharField(max_length=100, unique=True) 
 
     def __str__(self):
         return self.user.username
