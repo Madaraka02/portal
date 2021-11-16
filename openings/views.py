@@ -115,7 +115,6 @@ def delete_job(request, id):
         return redirect('company', id=request.user.company.id) 
 
 
-
 @login_required 
 def updateJob(request, id):
     if request.user.is_staff or request.user.is_company:
@@ -421,3 +420,5 @@ def admin_jobs(request):
             'jobs':jobs
         }  
         return render(request, 'admin-jobs.html', context)     
+
+        
