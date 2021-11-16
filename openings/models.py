@@ -20,7 +20,7 @@ class School(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
-    school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True) 
+    school = models.ForeignKey(School, on_delete=models.CASCADE, null=True) 
     course = models.CharField(max_length=100, null=True ) 
 
     def __str__(self):

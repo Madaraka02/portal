@@ -77,15 +77,19 @@ class SchoolSignUpView(CreateView):
         messages.success(self.request, "school added successfully")
         return redirect('school_register')        
 
-# def student_login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('dashboard')
-#     return render(request, 'login-student.html')      
+# def student_reg(request):
+#     if request.user.is_school:
+#         form = StudentSignUpForm()
+#         if request.method == 'POST':
+#             form = StudentSignUpForm(request.POST)
+#             if form.is_valid():
+#                 avail = form.save()
+#                 avail.school = request.user.school
+#                 avail.save()
+#         context={
+#             'form':form
+#         }
+#     return render(request, 'studentreg.html', context)      
 
 
 def site_login(request):
