@@ -22,7 +22,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
     school = models.ForeignKey(School, on_delete=models.CASCADE, null=True) 
     course = models.CharField(max_length=100, null=True ) 
-    transcript = models.FileField(upload_to='transcripts/',null=True)
+    # transcript = models.FileField(upload_to='transcripts/',null=True)
 
     def __str__(self):
         return self.user.username
