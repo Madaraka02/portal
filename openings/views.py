@@ -55,8 +55,6 @@ class student_register(CreateView):
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
-        # if self.request.user.is_staff or self.request.user.is_school:
-        #     form.instance.school = self.request.user.school
         user = form.save()
             # login(self.request, user)
         messages.success(self.request, "Student added successfully")
@@ -76,21 +74,6 @@ class SchoolSignUpView(CreateView):
         # login(self.request, user)
         messages.success(self.request, "school added successfully")
         return redirect('school_register')        
-
-# def student_reg(request):
-#     if request.user.is_school:
-#         form = StudentSignUpForm()
-#         if request.method == 'POST':
-#             form = StudentSignUpForm(request.POST)
-#             if form.is_valid():
-#                 avail = form.save()
-#                 avail.school = request.user.school
-#                 avail.save()
-#         context={
-#             'form':form
-#         }
-#     return render(request, 'studentreg.html', context)      
-
 
 def site_login(request):
     if request.method == 'POST':
