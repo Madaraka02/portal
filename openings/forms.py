@@ -32,7 +32,7 @@ class StudentSignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
     school = forms.ModelChoiceField(queryset=School.objects.all(), empty_label="Please choose a School")
     course = forms.CharField(required=True)
-    transcript = forms.FileField(required=True)
+    # transcript = forms.FileField(required=True)
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -48,7 +48,7 @@ class StudentSignUpForm(UserCreationForm):
         student = Student.objects.create(user=user)
         student.school = self.cleaned_data.get('school')
         student.course = self.cleaned_data.get('course')
-        student.transcript = self.cleaned_data.get('transcript')
+        # student.transcript = self.cleaned_data.get('transcript')
         student.save()
         return user
 
