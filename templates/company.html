@@ -89,9 +89,10 @@
             <h6 class="card-text">school: {{application.student.school}}</h6>
             <h6 class="card-text">Course: {{application.student.course}}</h6>
             <p class="card-text">Applied for: {{application.job.title}}</p>
-            <!-- <iframe src="static/media/transcripts/{{application.transcript.url}}" width="100%" height="100%" scrolling="auto" frameborder="0"></iframe> -->
+            
 
             <div>
+              <a class="btn btn-lg btn-outline-info mt-2 mb-2" href="{{application.student.transcript.url}}" download><i class="fa fa-download"></i> Download Transcript</a>
               <a class="btn btn-outline-danger btn-lg ml-2 mb-2" href="{% url 'delete_application' application.id %}">Delete</a>
             </div> 
           </div>

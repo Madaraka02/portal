@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from ckeditor.fields import RichTextField
+import os
+
+def file_path(instance, filename):
+    path = "trancripts/"
+    format = "uploaded"+ filename
+    return os.path.join(path,format)
 
 
 class User(AbstractUser):
@@ -22,7 +28,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
     school = models.ForeignKey(School, on_delete=models.CASCADE, null=True) 
     course = models.CharField(max_length=100, null=True ) 
-    # transcript = models.FileField(upload_to='transcripts/',null=True)
+    transcript = models.FileField(upload_to=file_path,null=True)
 
     def __str__(self):
         return self.user.username
