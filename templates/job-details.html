@@ -18,7 +18,9 @@
             <h6 class="card-text text-center" class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Required skills:</h6>
             <small class="text-center card-text"><p>{{job.required_skills|safe}}</p></small>
             <h6 class="card-text text-center" class="text-uppercase" style="font-size: small; letter-spacing: 2px;">Job description:</h6>
-            <small class="text-center card-text"><p>{{job.description|safe}}</p></small>
+          
+            <p>{{job.description|striptags|safe|linebreaks}}</p>
+            
             <div class="text-center">
               <form action="" method="post">
                 {% csrf_token %}

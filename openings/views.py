@@ -172,7 +172,7 @@ def updateCompany(request, id):
 @login_required   
 def dashboard(request):
     if request.user.is_student or request.user.is_staff:
-        jobs = Jobs.objects.all().order_by('-id')
+        jobs = Jobs.objects.filter(is_open=True).order_by('-id')
         paginator = Paginator(jobs, 5)
 
         page_number = request.GET.get('page')

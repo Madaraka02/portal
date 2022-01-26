@@ -75,9 +75,13 @@ class CompanySignUpForm(UserCreationForm):
 
 class JobForm(ModelForm):
     class Meta:
-        model = Jobs
-        fields = ('title', 'required_skills', 'is_open', 'description')       
+        model =  StudentCertifications
+        fields = ('upload_certifications', 'upload_cv')       
 
+class StudentCertificationsForm(ModelForm):
+    class Meta:
+        model = Jobs
+        fields = ('title', 'required_skills', 'is_open', 'description')
 
 class CompanyForm(ModelForm):
     class Meta:

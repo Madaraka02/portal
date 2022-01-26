@@ -70,12 +70,12 @@
                   </div>
         </div>
         <div class="col-md-6 mt-2 mb-2">
-            <h4>Create a new job</h4>
+            <h4>Create a new Attachment</h4>
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form.media}}
                 {{ form|crispy}}
-                <input class="btn btn-info btn-block" type="submit" value="add new job">
+                <input class="btn btn-info btn-block" type="submit" value="add new attachment">
             </form>
         </div>
     </div>

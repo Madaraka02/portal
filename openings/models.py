@@ -9,6 +9,11 @@ def file_path(instance, filename):
     return os.path.join(path,format)
 
 
+def cert_path(instance, filename):
+    path = "certifications/"
+    format = "uploaded"+ filename
+    return os.path.join(path,format)
+
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_company = models.BooleanField(default=False)
@@ -57,3 +62,12 @@ class Application(models.Model):
 
     def __str__(self):
         return self.job.title
+
+
+class StudentCertifications(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE) 
+    upload_cv = models.FileField(upload_to=cert_path, blank=True, null=True)   
+    upload_certifications = models.FileField(upload_to=cert_path, blank=True, null=True)
+
+    def __str__(self):
+        return self.student.username  

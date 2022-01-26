@@ -96,11 +96,7 @@
             
   
   
-              {% if job.is_open %}
               <a href="{% url 'job_details' job.id %}" class="mt-2 btn  btn-outline-success">View detils
-                {% else %}
-                <h4 class="badge badge-danger" style="font-size: medium; letter-spacing: 2px;">Closed</h4>
-                {% endif %}
                 </a>
             </div>
           </div>
