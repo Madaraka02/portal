@@ -73,11 +73,23 @@ class CompanySignUpForm(UserCreationForm):
         company.save()
         return user    
 
-
+# widgets = {'slug': forms.HiddenInput()}
 class JobForm(ModelForm):
     class Meta:
         model = Jobs
-        fields = ('title', 'required_skills', 'is_open', 'description')       
+        fields = ('title', 'required_skills', 'is_open', 'description')   
+        # def __init__(self, *args, **kwargs):
+        #     admin_check = kwargs.pop('admin_check', False)
+        #     super(JobForm, self).__init__(*args, **kwargs)
+        #     if not admin_check:
+        #         del self.fields['is_open']  
+        def __init__(self, *args, **kwargs):
+            from django.forms.widgets import HiddenInput
+            hide_condition = kwargs.pop('hide_condition',None)
+            super(JobForm, self).__init__(*args, **kwargs)
+            if hide_condition:
+                self.fields['is_open'].widget = HiddenInput()
+                # or alternately:  del self.fields['fieldname']  to remove it from the form altogether.  
 
 
 class CompanyForm(ModelForm):

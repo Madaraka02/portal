@@ -2,6 +2,11 @@
 {% load crispy_forms_tags %}
 {% block title %}<title>Company|Opening</title>{% endblock %}
 {% block content %}
+<nav class="navbar navbar-dark bg-dark ">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'company' user.company.id %}">Home</a>
+    </div>
+  </nav>
 <div class="conatiner mt-4 mb-4">
     <div class="row mt-4 mb-4">
         <div class="col-md-3"></div>

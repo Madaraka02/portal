@@ -254,8 +254,9 @@ def studentacc(request, id):
         job = get_object_or_404(Jobs, id=id)
         company = job.company
         student = request.user.student
+        admin_check = False
         form = ApplicationForm()
-            
+        admin_check = True    
         if request.method == "POST":
             form = ApplicationForm(request.POST)
             if form.is_valid():
@@ -298,6 +299,7 @@ def company(request, id):
         form = JobForm(request.POST)
         if form.is_valid():
             avail = form.save(commit=False)
+            avail.is_open = True
             avail.company = request.user.company
             avail.save()
             
