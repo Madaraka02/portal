@@ -59,6 +59,8 @@ class Application(models.Model):
     job = models.ForeignKey(Jobs, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    upload_cv = models.FileField(upload_to=cert_path, blank=True, null=True)   
+    upload_certifications = models.FileField(upload_to=cert_path, blank=True, null=True)
 
     def __str__(self):
         return self.job.title
@@ -70,4 +72,4 @@ class StudentCertifications(models.Model):
     upload_certifications = models.FileField(upload_to=cert_path, blank=True, null=True)
 
     def __str__(self):
-        return self.student.username  
+        return self.student.user.username  

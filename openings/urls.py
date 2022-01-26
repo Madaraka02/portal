@@ -22,7 +22,8 @@ urlpatterns = [
     path('update/school/<int:id>/',  updateSchool, name="update_school"),
 
     path('update/student/<int:id>/',  updateStudent, name="update_student"),
-    
+
+    path('student/certs/',  studentacc, name="studentacc"),
     path('companies/<str:id>/',  company, name="company"),
     path('schools/<str:id>/',  school, name="school"),
     path('details/job/<int:id>/', jobs_details, name="job_details"),

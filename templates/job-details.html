@@ -21,13 +21,16 @@
           
             <p>{{job.description|striptags|safe|linebreaks}}</p>
             
-            <div class="text-center">
-              <form action="" method="post">
-                {% csrf_token %}
-                {{form}}
-                <button class="btn btn-outline-info btn-lg" type="submit">Send application</button>
-              </form>
-            </div>
+
+          </div>
+        </div>
+        <div class="card shadow-lg mt-4 mb-2">
+          <div class="p-3">
+            <form action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{form}}
+              <button class="btn btn-outline-info btn-lg" type="submit">Send application</button>
+            </form>
           </div>
         </div>
 

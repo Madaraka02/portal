@@ -247,6 +247,29 @@ def updateStudent(request, id):
     }
     return render(request, 'school-update-student.html', context) 
 
+@login_required
+def studentacc(request, id):
+    if request.user.is_student:
+        jobs = Jobs.objects.filter(id=id)
+        job = get_object_or_404(Jobs, id=id)
+        company = job.company
+        student = request.user.student
+        form = ApplicationForm()
+            
+        if request.method == "POST":
+            form = ApplicationForm(request.POST)
+            if form.is_valid():
+                appl_form = form.save(commit=False)
+                appl_form.student = request.user.student
+                appl_form.job = job
+                appl_form.company = company
+                appl_form.save()
+                messages.success(request, "application was successful")
+                return redirect('dashboard') 
+    context = {
+        'form':form
+    }
+    return render(request, 'studentacc.html', context)
 
 @login_required
 def company(request, id):
@@ -325,7 +348,7 @@ def jobs_details(request, id):
         form = ApplicationForm()
         
         if request.method == "POST":
-            form = ApplicationForm(request.POST)
+            form = ApplicationForm(request.POST, request.FILES)
             if form.is_valid():
                 appl_form = form.save(commit=False)
                 appl_form.student = request.user.student

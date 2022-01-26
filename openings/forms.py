@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ClearableFileInput
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.forms import ModelForm
@@ -75,13 +76,9 @@ class CompanySignUpForm(UserCreationForm):
 
 class JobForm(ModelForm):
     class Meta:
-        model =  StudentCertifications
-        fields = ('upload_certifications', 'upload_cv')       
-
-class StudentCertificationsForm(ModelForm):
-    class Meta:
         model = Jobs
-        fields = ('title', 'required_skills', 'is_open', 'description')
+        fields = ('title', 'required_skills', 'is_open', 'description')       
+
 
 class CompanyForm(ModelForm):
     class Meta:
@@ -101,5 +98,8 @@ class StudentForm(ModelForm):
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = ( )        
+        fields = ( 'upload_cv', 'upload_certifications')       
+        widgets = {
+            'upload_certifications': ClearableFileInput(attrs={'multiple': True}),
+        } 
         
