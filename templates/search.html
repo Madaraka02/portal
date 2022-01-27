@@ -54,8 +54,7 @@
           {% endfor %}
         </tbody>
         </table>  
-      </div>
-          <div class="pagination align-items-center justify-content-center">
+        <div class="pagination align-items-center justify-content-center">
             <span class="step-links">
                 {% if data.has_previous %}                                     <!--If there is a previous page-->
                     <a class="btn btn-info btn-sm" href="?page={{ data.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
@@ -70,6 +69,8 @@
                 {% endif %}
             </span>
         </div>
+      </div>
+
      
 
      </div>

@@ -448,9 +448,19 @@ def admin_jobs(request):
 
 def searchStudentByCourse(request):
     q = request.GET['q']
+    students = Student.objects.filter(course__icontains=q).order_by('-id')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(students, 15)
+    try:
+        data = paginator.page(page)
+    except PageNotAnInteger:
+        data = paginator.page(1)
+    except EmptyPage:
+        data = paginator.page(paginator.num_pages)
     if q:
         context = {
-            'data' : Student.objects.filter(course__icontains=q).order_by('-id'),
+            'data' : data,
         }
 
         return render(request, 'search.html', context)
