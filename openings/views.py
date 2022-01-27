@@ -446,15 +446,15 @@ def admin_jobs(request):
         }  
         return render(request, 'admin-jobs.html', context)     
 
-# def searchStudentByCourse(request):
-#     q = request.GET['q']
-#     if q:
-#         context = {
-#             'data' : Student.objects.filter(course__icontains=q).order_by('-id'),
-#         }
+def searchStudentByCourse(request):
+    q = request.GET['q']
+    if q:
+        context = {
+            'data' : Student.objects.filter(course__icontains=q).order_by('-id'),
+        }
 
-#         return render(request, 'search.html', context)
-#     return redirect('school', id=request.user.school.id)     
+        return render(request, 'search.html', context)
+    return redirect('school', id=request.user.school.id)     
 
 
 def search(request):
