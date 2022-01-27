@@ -447,24 +447,26 @@ def admin_jobs(request):
         return render(request, 'admin-jobs.html', context)     
 
 def searchStudentByCourse(request):
-    q = request.GET['q']
-    students = Student.objects.filter(course__icontains=q).order_by('-id')
-    page = request.GET.get('page', 1)
+    if request.user.is_school:
+        school = School.objects.get(id=request.user.school.id)
+        q = request.GET['q']
+        students = Student.objects.filter(course__icontains=q).filter(school=school).order_by('-id')
+        page = request.GET.get('page', 1)
 
-    paginator = Paginator(students, 15)
-    try:
-        data = paginator.page(page)
-    except PageNotAnInteger:
-        data = paginator.page(1)
-    except EmptyPage:
-        data = paginator.page(paginator.num_pages)
-    if q:
-        context = {
-            'data' : data,
-        }
+        paginator = Paginator(students, 15)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        if q:
+            context = {
+                'data' : data,
+            }
 
-        return render(request, 'search.html', context)
-    return redirect('school', id=request.user.school.id)     
+            return render(request, 'search.html', context)
+        return redirect('school', id=request.user.school.id)     
 
 
 def search(request):
