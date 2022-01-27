@@ -29,7 +29,7 @@ urlpatterns = [
     path('details/job/<int:id>/', jobs_details, name="job_details"),
     path('delete/application/<int:id>/',  delete_application, name="delete_application"),
 
-    path('search/',  searchJob, name="searchjob"),
+    path('search/', search, name='search'),
 
     path('portaladmin/schools/',  admin_schools, name="admin_schools"),
     path('portaladmin/students/',  admin_students, name="admin_students"),

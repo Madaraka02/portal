@@ -33,6 +33,9 @@
   .fa{
     color: red;
   }
+  .form-inline .form-control{
+   width:600px;
+}
 
 </style>
 
@@ -45,10 +48,10 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav ">
-              <form action="search/">
-                <input name="q" type="text" placeholder="Search for an opening e.g web developer" aria-label="Search" class="input">
-                <button type="submit" class="search-btn">Search</button>
+            <div class="navbar-nav justify-content-center">
+              <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}">
+                <input class="form-control mr-sm-2"  name="q" type="text" placeholder="Search for an opening e.g web developer" aria-label="Search" class="input">
+                <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
               </form>
               
             </div>

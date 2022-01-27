@@ -32,6 +32,7 @@ class School(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
     school = models.ForeignKey(School, on_delete=models.CASCADE, null=True) 
+    # department = models.CharField(max_length=100, null=True, blank=False ) 
     course = models.CharField(max_length=100, null=True ) 
     transcript = models.FileField(upload_to=file_path,null=True)
 

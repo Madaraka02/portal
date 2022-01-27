@@ -457,7 +457,7 @@ def admin_jobs(request):
 #     return redirect('school', id=request.user.school.id)     
 
 
-def searchJob(request):
+def search(request):
     q = request.GET['q']
     if q:
         context = {
