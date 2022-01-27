@@ -119,7 +119,7 @@ def delete_job(request, id):
 def updateJob(request, id):
     if request.user.is_staff or request.user.is_company:
         job = Jobs.objects.get(id=id)
-        form = JobForm(instance=job)
+        form = JobUpdateForm(instance=job)
 
         if request.method == "POST":
             form = JobForm(request.POST or None, request.FILES, instance=job)
