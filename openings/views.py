@@ -446,4 +446,9 @@ def admin_jobs(request):
         }  
         return render(request, 'admin-jobs.html', context)     
 
-        
+def searchStudentByCourse(request):
+    pass        
+
+
+def searchJob(request):
+    pass     
