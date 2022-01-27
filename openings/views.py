@@ -446,9 +446,23 @@ def admin_jobs(request):
         }  
         return render(request, 'admin-jobs.html', context)     
 
-def searchStudentByCourse(request):
-    pass        
+# def searchStudentByCourse(request):
+#     q = request.GET['q']
+#     if q:
+#         context = {
+#             'data' : Student.objects.filter(course__icontains=q).order_by('-id'),
+#         }
+
+#         return render(request, 'search.html', context)
+#     return redirect('school', id=request.user.school.id)     
 
 
 def searchJob(request):
-    pass     
+    q = request.GET['q']
+    if q:
+        context = {
+            'data' : Jobs.objects.filter(title__icontains=q).order_by('-id'),
+        }
+
+        return render(request, 'searchjobs.html', context)
+    return redirect('dashboard')         
