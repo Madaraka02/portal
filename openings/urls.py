@@ -30,6 +30,7 @@ urlpatterns = [
     path('delete/application/<int:id>/',  delete_application, name="delete_application"),
 
     path('search/', search, name='search'),
+    path('search/courses/', searchStudentByCourse, name='searchcourses'),
 
     path('portaladmin/schools/',  admin_schools, name="admin_schools"),
     path('portaladmin/students/',  admin_students, name="admin_students"),

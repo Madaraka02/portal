@@ -1,4 +1,96 @@
-<form action="/search">
-    <input name="q" type="text" placeholder="Search a product" aria-label="Search" class="input" placeholder="Search here">
-    <button type="submit" class="search-btn">Search</button>
-</form>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}<title>Search|openning</title>{% endblock %}
+{% block content %}
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark ">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="{% url 'school' user.school.id %}"><i class="fas fa-home"></i> Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+              
+              <a class="nav-item nav-link" href="">{{user.username}}</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+ {% if data %}
+ <h4 class="text-muted mt-4 mb-4 text-center">Search results for <span>{{request.GET.q}}</span></h4>
+ <hr>
+ <div class="row">
+     <div class="col-md-2"></div>
+     <!-- product -->
+     <div class="col-md-8">
+
+     <table class="table table-sm table-striped table-hover">
+        <thead class=" thead-dark">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Course</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for student in data  %}
+            <tr>
+                <td>{{student.user.username}}</td>
+                <td>{{student.course}}</td>
+                <td><a class="btn btn-outline-info btn-sm" href="{% url 'update_student' student.id %}">Update <i class="far fa-edit"> </i></a></td>
+                <td><a class="btn btn-outline-danger btn-sm" href="{% url 'delete' student.pk %}">Delete<i class="fas fa-trash-alt"></i></a></td>
+
+               
+                
+                </tr>
+      
+          {% endfor %}
+        </tbody>
+        </table>  
+      </div>
+          <div class="pagination align-items-center justify-content-center">
+            <span class="step-links">
+                {% if data.has_previous %}                                     <!--If there is a previous page-->
+                    <a class="btn btn-info btn-sm" href="?page={{ data.previous_page_number }}">&laquo;</a>  <!--Hyperlink to previous page on Click-->
+                {% endif %}
+        
+                <span class="current">
+                     Page{{ data.number }} of {{ data.paginator.num_pages }}  <!--customers_list.number Is the current page number,customers_list.paginator.num_pages Is the total number of pages-->
+                </span>
+        
+                {% if data.has_next %}    <!--If there is a next page-->
+                    <a class="btn btn-info btn-sm" href="?page={{ data.next_page_number }}">&raquo;</a>    <!--Hyperlink to next page when clicked-->
+                {% endif %}
+            </span>
+        </div>
+     
+
+     </div>
+     </div>
+     <!-- /product -->
+     
+
+
+ </div>
+ <!-- /store products -->
+{% else %}
+ <div class="container-fluid mt-2">
+     <div class="row">
+         <div class="col-md-3"></div>
+         <div class="col-md-6">
+            <h4 class="text-muted mt-4 mb-4 text-uppercase text-center">{{request.GET.q}} not found</span></h4>
+         </div>
+         <div class="col-md-3"></div>
+     </div>
+   
+ </div> 
+{% endif %}  
+
+{% endblock %}

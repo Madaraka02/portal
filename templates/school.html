@@ -10,11 +10,15 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarToggle">
-        <div class="navbar-nav mr-auto">
+        <div class="navbar-nav justify-content-center">
+          <form class="form-inline my-2 my-lg-0" action="{% url 'searchcourses' %}">
+            <input class="form-control mr-sm-2"  name="q" type="text" placeholder="Search for a course e.g computer science" aria-label="Search" class="input">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Search</button>
+          </form>
           
         </div>
         <!-- Navbar Right Side -->
-        <div class="navbar-nav">
+        <div class="navbar-nav ml-auto">
             
             <a class="nav-item nav-link" href="{% url 'logout' %}">Logout <i class="fas fa-sign-out-alt"></i> </a>
         </div>
